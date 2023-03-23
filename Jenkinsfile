@@ -28,8 +28,5 @@
             }
         }
     }
-}```
+}
 
-Ce script compile les fichiers `prog.py` et `calc.py` en utilisant une image Docker `python:3.8-alpine3.16`. Il stocke ensuite les résultats compilés dans une variable nommée `compiled-results`. 
-
-La deuxième étape du script exécute les tests en utilisant une image Docker `grihabor/pytest`. Les résultats sont stockés dans un fichier XML nommé `results.xml`. Enfin, le script affiche les résultats des tests en utilisant la commande `junit`.
