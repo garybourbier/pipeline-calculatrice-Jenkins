@@ -1,4 +1,3 @@
-pipeline {
     agent none
     stages {
         stage('Build') {
@@ -27,25 +26,10 @@ pipeline {
                     junit "test-reports/results.xml"
                 }
             }
-            stage('Deliver') {
-            agent any
-            environment {
-                VOLUME = '$(pwd)/sources:/src'
-                IMAGE = 'cdrx/pyinstaller-linux'
-            }
-            steps {
-                dir(path: env.BUILD_ID) {
-                    unstash(name: 'compiled-results')
-                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F prog.py'"
-                }
-            }
-            post {
-                success {
-                    archiveArtifacts "${env.BUILD_ID}/sources/dist/prog"
-                }
-            }
-        }
         }
     }
-}
+}```
 
+Ce script compile les fichiers `prog.py` et `calc.py` en utilisant une image Docker `python:3.8-alpine3.16`. Il stocke ensuite les résultats compilés dans une variable nommée `compiled-results`. 
+
+La deuxième étape du script exécute les tests en utilisant une image Docker `grihabor/pytest`. Les résultats sont stockés dans un fichier XML nommé `results.xml`. Enfin, le script affiche les résultats des tests en utilisant la commande `junit`.
