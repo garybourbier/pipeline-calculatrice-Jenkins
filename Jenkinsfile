@@ -27,6 +27,12 @@ pipeline {
                     junit "test-reports/results.xml"
                 }
             }
+                    stage('Branch') {
+            agent any
+            steps {
+                echo 'Stage'
+            }
+        }
         }
     }
 }
