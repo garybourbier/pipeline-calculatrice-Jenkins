@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts
+                    junit "test-reports/results.xml"
                 }
             }
         }
